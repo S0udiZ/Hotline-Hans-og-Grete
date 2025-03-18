@@ -10,11 +10,16 @@ public class PlayerControllerScript : MonoBehaviour
     [SerializeField] // Camera Object
     GameObject Camera;
 
+    [SerializeField] // Sound Effects
+    GameObject SoundsObject;
+
     bool CurrentCharacter = false; // False=Hans, True=Grete.
 
-    void Start()
+    float StepTimer = 0f;
+
+    void PlaySound(string sound)
     {
-        
+        SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
     }
 
     // Update is called once per frame
@@ -23,6 +28,7 @@ public class PlayerControllerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CurrentCharacter = !CurrentCharacter;
+            PlaySound("swap");
         }
         Vector3 dir;
         if (CurrentCharacter)
@@ -36,5 +42,46 @@ public class PlayerControllerScript : MonoBehaviour
         Debug.Log(dir);
         dir.z = -10;
         Camera.transform.localPosition = Camera.transform.localPosition+(dir/5);
+        Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);
+
+        dir = Vector3.zero;
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            dir.y++;
+        }
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            dir.y--;
+        }
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            dir.x++;
+        }
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            dir.x--;
+        }
+        if (dir == Vector3.zero)
+        {
+            StepTimer = 0f;
+        }
+
+        dir = dir.normalized * 3.4f;
+
+        StepTimer += Time.deltaTime;
+        if (StepTimer > 0.45f)
+        {
+            PlaySound("step");
+            StepTimer = 0;
+        }
+
+        if (CurrentCharacter)
+        {
+            HansGameObject.transform.position += dir*Time.deltaTime;
+        }
+        else
+        {
+            GreteGameObject.transform.position += dir*Time.deltaTime;
+        }
     }
 }

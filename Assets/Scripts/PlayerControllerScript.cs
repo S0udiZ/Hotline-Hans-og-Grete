@@ -17,6 +17,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     float StepTimer = 0f;
 
+    float SwapCooldown = 0.5f;
+
     void PlaySound(string sound)
     {
         SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
@@ -27,9 +29,14 @@ public class PlayerControllerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CurrentCharacter = !CurrentCharacter;
-            PlaySound("swap");
+            if (SwapCooldown < 0)
+            {
+                CurrentCharacter = !CurrentCharacter;
+                PlaySound("swap");
+                SwapCooldown = 2f;
+            }
         }
+        SwapCooldown -= Time.deltaTime;
         Vector3 dir;
         if (CurrentCharacter)
         {

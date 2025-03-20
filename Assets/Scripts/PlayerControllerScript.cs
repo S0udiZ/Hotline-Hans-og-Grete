@@ -46,7 +46,6 @@ public class PlayerControllerScript : MonoBehaviour
         {
             dir = GreteGameObject.transform.localPosition - Camera.transform.localPosition;
         }
-        Debug.Log(dir);
         dir.z = -10;
         Camera.transform.localPosition = Camera.transform.localPosition+(dir/5);
         Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);

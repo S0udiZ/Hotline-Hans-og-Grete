@@ -33,7 +33,7 @@ public class PlayerControllerScript : MonoBehaviour
             {
                 CurrentCharacter = !CurrentCharacter;
                 PlaySound("swap");
-                SwapCooldown = 2f;
+                SwapCooldown = 0.5f;
             }
         }
         SwapCooldown -= Time.deltaTime;

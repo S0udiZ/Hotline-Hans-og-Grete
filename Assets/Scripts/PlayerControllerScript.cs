@@ -10,9 +10,6 @@ public class PlayerControllerScript : MonoBehaviour
     [SerializeField] // Camera Object
     GameObject Camera;
 
-    [SerializeField] // Sound Effects
-    GameObject SoundsObject;
-
     bool CurrentCharacter = false; // False=Hans, True=Grete.
 
     float StepTimer = 0f;
@@ -21,7 +18,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     void PlaySound(string sound)
     {
-        SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
+        Debug.Log("[" + Time.time + "] Play Sound: " + sound);
+        //SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
     }
 
     // Update is called once per frame

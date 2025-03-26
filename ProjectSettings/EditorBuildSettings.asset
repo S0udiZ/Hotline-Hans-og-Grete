@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: bd2f6cf11ee4c964c9bfc59aac6467eb
   - enabled: 1
-    path: Assets/Scenes/LevelManager.unity
+    path: Assets/Scenes/Base.unity
     guid: 76b67b1b9e72f6640948d025d7b54be9
   - enabled: 1
     path: Assets/Scenes/1.unity
@@ -38,6 +38,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/3.unity
     guid: 4cc2f3420cc05094faa2a78bf3f55968
+  - enabled: 1
+    path: Assets/Scenes/4.unity
+    guid: f8b2643229f69f1489f9bae7ca1684b8
+  - enabled: 1
+    path: Assets/Scenes/5.unity
+    guid: eb044ce4bbb643d45a543d7254e46692
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

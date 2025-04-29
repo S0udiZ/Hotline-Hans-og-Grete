@@ -1,16 +1,18 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerControllerScript : MonoBehaviour
 {
     [SerializeField] // Hans charecter parent Gameobject
-    GameObject HansGameObject;
+    public GameObject HansGameObject;
     [SerializeField] // Grete character parent Gameobject
-    GameObject GreteGameObject;
-
+    public GameObject GreteGameObject;
+    [SerializeField] // Current character object.
+    public GameObject CurrentCharObj;
     [SerializeField] // Camera Object
     GameObject Camera;
 
-    bool CurrentCharacter = false; // False=Hans, True=Grete.
+    float PlayerSpeed = 1.2f;
 
     float StepTimer = 0f;
 
@@ -25,29 +27,34 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HansGameObject.GetComponent<Animator>().SetInteger("value", 1);
+        //Swap mechanic
+        SwapCooldown -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (SwapCooldown < 0)
             {
-                CurrentCharacter = !CurrentCharacter;
+                if (CurrentCharObj == HansGameObject)
+                {
+                    CurrentCharObj = GreteGameObject;
+                }
+                else if (CurrentCharObj == GreteGameObject)
+                {
+                    CurrentCharObj = HansGameObject;
+                }
                 PlaySound("swap");
                 SwapCooldown = 0.5f;
             }
         }
-        SwapCooldown -= Time.deltaTime;
+
+        //Camera follow
+
         Vector3 dir;
-        if (CurrentCharacter)
-        {
-            dir = HansGameObject.transform.localPosition-Camera.transform.localPosition;
-        }
-        else
-        {
-            dir = GreteGameObject.transform.localPosition - Camera.transform.localPosition;
-        }
-        dir.z = -10;
-        Camera.transform.localPosition = Camera.transform.localPosition+(dir/5);
+        dir = CurrentCharObj.transform.localPosition-Camera.transform.localPosition;
+        Camera.transform.localPosition = Camera.transform.localPosition+(dir*(Time.deltaTime*2));
         Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);
 
+        //Movement
         dir = Vector3.zero;
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
@@ -65,13 +72,17 @@ public class PlayerControllerScript : MonoBehaviour
         {
             dir.x--;
         }
+
+        dir = dir.normalized * PlayerSpeed;
+        dir += (Vector3)CurrentCharObj.GetComponent<Rigidbody2D>().linearVelocity;
+        CurrentCharObj.GetComponent<Rigidbody2D>().linearVelocity = dir;
+        //(dir).normalized;
+
+        //Step sound
         if (dir == Vector3.zero)
         {
             StepTimer = 0f;
         }
-
-        dir = dir.normalized * 3.4f;
-
         StepTimer += Time.deltaTime;
         if (StepTimer > 0.45f)
         {
@@ -79,13 +90,5 @@ public class PlayerControllerScript : MonoBehaviour
             StepTimer = 0;
         }
 
-        if (CurrentCharacter)
-        {
-            HansGameObject.transform.position += dir*Time.deltaTime;
-        }
-        else
-        {
-            GreteGameObject.transform.position += dir*Time.deltaTime;
-        }
     }
 }

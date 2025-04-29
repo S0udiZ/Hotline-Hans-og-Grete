@@ -552,6 +552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifetime: 3
+  rotationSpeed: 500
   player: {fileID: 610139035}
   throwingStarPrefab: {fileID: 756634759895807270, guid: 8c73ad8b0193573488900e3808defce1, type: 3}
 --- !u!1 &1142629900

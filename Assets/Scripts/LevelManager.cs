@@ -10,23 +10,23 @@ public class LevelManager : MonoBehaviour
         level = Startlevel;
         SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            ChangeLevel(GetLevel()+1);
-        }
-    }
     public void ChangeLevel(int newlevel)
     {
+        GetComponent<PlayerControllerScript>().ResetPlayers();
         SceneManager.UnloadSceneAsync(level.ToString());
+        Debug.Log("Level Change");
+        Debug.Log("lvl: " + level);
+        Debug.Log("new lvl: " + newlevel);
         level = newlevel;
         SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
     }
 
     public void ResetLevel()
     {
-        ChangeLevel(Startlevel);
+        Debug.Log("Level Reset");
+        GetComponent<PlayerControllerScript>().ResetPlayers();
+        SceneManager.UnloadSceneAsync(level.ToString());
+        SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
     }
 
     public int GetLevel()

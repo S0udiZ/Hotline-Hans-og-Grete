@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - MapCollider
+  - Hans
+  - Grete
+  - Door
   layers:
   - Default
   - TransparentFX

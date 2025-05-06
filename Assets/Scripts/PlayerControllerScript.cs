@@ -61,6 +61,7 @@ public class PlayerControllerScript : MonoBehaviour
         resettimer = 0.2f;
         HansPS.Emit(40);
         HansGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        HansGameObject.GetComponent<Collider2D>().enabled = false;
     }
     public void KillGrete()
     {
@@ -72,6 +73,7 @@ public class PlayerControllerScript : MonoBehaviour
         resettimer = 0.2f;
         GretePS.Emit(40);
         GreteGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        GreteGameObject.GetComponent<Collider2D>().enabled = false;
     }
 
     // Update is called once per frame
@@ -165,7 +167,7 @@ public class PlayerControllerScript : MonoBehaviour
             dir.x--;
         }
 
-        dir = dir.normalized * PlayerSpeed;
+        dir = dir.normalized * PlayerSpeed * Time.deltaTime;
         dir += (Vector3)CurrentCharObj.GetComponent<Rigidbody2D>().linearVelocity;
         CurrentCharObj.GetComponent<Rigidbody2D>().linearVelocity = dir;
         if (dir.magnitude > 0.2f)
@@ -205,6 +207,8 @@ public class PlayerControllerScript : MonoBehaviour
         GreteGameObject.transform.position = new Vector3(0, -0.5f, 0);
         HansGameObject.GetComponent<SpriteRenderer>().enabled = true;
         GreteGameObject.GetComponent<SpriteRenderer>().enabled = true;
+        HansGameObject.GetComponent<Collider2D>().enabled = true;
+        GreteGameObject.GetComponent<Collider2D>().enabled = true;
         HansFinish = false;
         GreteFinish = false;
         CurrentCharObj = HansGameObject;

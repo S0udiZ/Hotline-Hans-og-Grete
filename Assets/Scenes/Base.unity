@@ -5265,7 +5265,7 @@ MonoBehaviour:
   Camera: {fileID: 1370672491}
   hinttext: {fileID: 1954803699}
   hintbg: {fileID: 1311358020}
-  PlayerSpeed: 0.6
+  PlayerSpeed: 5
 --- !u!4 &687808296
 Transform:
   m_ObjectHideFlags: 0

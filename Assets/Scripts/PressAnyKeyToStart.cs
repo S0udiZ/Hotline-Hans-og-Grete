@@ -14,23 +14,47 @@ public class PressAnyKeyToStart : MonoBehaviour
     [SerializeField] private GameObject[] flashes;
     [SerializeField] private GameObject end;
 
+    // Store the base colors of the images
+    private Color[] baseColors;
+
+    void Start()
+    {
+        // Initialize the base colors array
+        baseColors = new Color[flashes.Length];
+        for (int i = 0; i < flashes.Length; i++)
+        {
+            baseColors[i] = flashes[i].GetComponent<Image>().color;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         end.SetActive(false);
         SelfAlivetime += Time.deltaTime;
+
         for (int i = 0; i < flashes.Length; i++)
         {
-            flashes[i].GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            Image image = flashes[i].GetComponent<Image>();
+            Color tempColor = baseColors[i]; // Start with the base color
+
             if (SelfAlivetime > ((i + 1) * 2) - 1)
             {
-                flashes[i].GetComponent<Image>().color = new Color(1, 1, 1, SelfAlivetime - (((i + 1) * 2) - 1));
+                tempColor.a = Mathf.Clamp01(SelfAlivetime - (((i + 1) * 2) - 1));
             }
+            else
+            {
+                tempColor.a = 0; // Ensure alpha is 0 before animation starts
+            }
+
             if (SelfAlivetime > (i + 1) * 2)
             {
-                flashes[i].GetComponent<Image>().color = new Color(1, 1, 1, (((i + 1) * 2) + 1) - SelfAlivetime);
+                tempColor.a = Mathf.Clamp01((((i + 1) * 2) + 1) - SelfAlivetime);
             }
+
+            image.color = tempColor; // Apply the animated color
         }
+
         if (SelfAlivetime > (flashes.Length + 1) * 2)
         {
             end.SetActive(true);

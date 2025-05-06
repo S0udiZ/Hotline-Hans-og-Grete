@@ -30,6 +30,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     [SerializeField] float PlayerSpeed = 0.8f;
 
+    [SerializeField] GameObject SoundsObj;
+
     float StepTimer = 0f;
 
     float stepSize = 1f;
@@ -41,8 +43,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     void PlaySound(string sound)
     {
-        //Debug.Log("[" + Time.time + "] Play Sound: " + sound);
-        //SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
+        Debug.Log("[" + Time.time + "] Play Sound: " + sound);
+        SoundsObj.GetComponent<SoundScript>().PlaySound(sound);
     }
 
     public void SetHint(string txt)
@@ -61,6 +63,7 @@ public class PlayerControllerScript : MonoBehaviour
         resettimer = 0.2f;
         HansPS.Emit(40);
         HansGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        HansGameObject.GetComponent<Collider2D>().enabled = false;
     }
     public void KillGrete()
     {
@@ -72,6 +75,7 @@ public class PlayerControllerScript : MonoBehaviour
         resettimer = 0.2f;
         GretePS.Emit(40);
         GreteGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        GreteGameObject.GetComponent<Collider2D>().enabled = false;
     }
 
     // Update is called once per frame
@@ -165,7 +169,7 @@ public class PlayerControllerScript : MonoBehaviour
             dir.x--;
         }
 
-        dir = dir.normalized * PlayerSpeed;
+        dir = dir.normalized * PlayerSpeed * Time.deltaTime;
         dir += (Vector3)CurrentCharObj.GetComponent<Rigidbody2D>().linearVelocity;
         CurrentCharObj.GetComponent<Rigidbody2D>().linearVelocity = dir;
         if (dir.magnitude > 0.2f)
@@ -205,6 +209,8 @@ public class PlayerControllerScript : MonoBehaviour
         GreteGameObject.transform.position = new Vector3(0, -0.5f, 0);
         HansGameObject.GetComponent<SpriteRenderer>().enabled = true;
         GreteGameObject.GetComponent<SpriteRenderer>().enabled = true;
+        HansGameObject.GetComponent<Collider2D>().enabled = true;
+        GreteGameObject.GetComponent<Collider2D>().enabled = true;
         HansFinish = false;
         GreteFinish = false;
         CurrentCharObj = HansGameObject;

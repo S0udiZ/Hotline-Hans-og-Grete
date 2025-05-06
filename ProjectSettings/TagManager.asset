@@ -8,6 +8,8 @@ TagManager:
   - Hans
   - Grete
   - Door
+  - Box
+  - Wall
   layers:
   - Default
   - TransparentFX

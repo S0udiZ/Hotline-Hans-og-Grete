@@ -18,7 +18,13 @@ public class LevelManager : MonoBehaviour
         Debug.Log("lvl: " + level);
         Debug.Log("new lvl: " + newlevel);
         level = newlevel;
-        SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
+        try { //Does not fucking work and I do not know why
+            SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
+        } catch (System.Exception)
+        {
+            SceneManager.LoadSceneAsync("End", LoadSceneMode.Additive);
+            throw;
+        }
     }
 
     public void ResetLevel()

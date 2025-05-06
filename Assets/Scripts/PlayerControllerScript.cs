@@ -1,20 +1,32 @@
 using System.Collections;
+using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControllerScript : MonoBehaviour
 {
     [SerializeField] // Hans charecter parent Gameobject
     public GameObject HansGameObject;
+    [SerializeField] // ParticleSystem
+    public ParticleSystem HansPS;
     public bool HansFinish = false;
+
     [SerializeField] // Grete character parent Gameobject
     public GameObject GreteGameObject;
+    [SerializeField] // ParticleSystem
+    public ParticleSystem GretePS;
     public bool GreteFinish = false;
+
     [SerializeField] // Current character object.
     public GameObject CurrentCharObj;
     [SerializeField] // Camera Object
     GameObject Camera;
 
+    [SerializeField] TextMeshProUGUI hinttext;
+    [SerializeField] Image hintbg;
+    float hintdelay = 0f;
 
     [SerializeField] float PlayerSpeed = 0.8f;
 
@@ -24,17 +36,64 @@ public class PlayerControllerScript : MonoBehaviour
 
     float SwapCooldown = 0.5f;
 
+    bool awaitreset = false;
+    float resettimer = 0f;
+
     void PlaySound(string sound)
     {
-        Debug.Log("[" + Time.time + "] Play Sound: " + sound);
+        //Debug.Log("[" + Time.time + "] Play Sound: " + sound);
         //SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
+    }
+
+    public void SetHint(string txt)
+    {
+        hinttext.text = txt;
+        hintdelay = 0.2f;
+    }
+
+    public void KillHans()
+    {
+        if (HansGameObject.GetComponent<SpriteRenderer>().enabled == false)
+        {
+            return;
+        }
+        awaitreset = true;
+        resettimer = 0.2f;
+        HansPS.Emit(40);
+        HansGameObject.GetComponent<SpriteRenderer>().enabled = false;
+    }
+    public void KillGrete()
+    {
+        if (GreteGameObject.GetComponent<SpriteRenderer>().enabled == false)
+        {
+            return;
+        }
+        awaitreset = true;
+        resettimer = 0.2f;
+        GretePS.Emit(40);
+        GreteGameObject.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        //Hint
+        hintdelay -= Time.deltaTime;
+        hintbg.GetComponent<Image>().enabled = true;
+        if (hintdelay < 0)
         {
+            hinttext.text = "";
+            hintbg.GetComponent<Image>().enabled = false;
+        }
+        //Reset
+        if (awaitreset)
+        {
+            resettimer -= Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.R) || (resettimer<0&&awaitreset))
+        {
+            resettimer = 0;
+            awaitreset = false;
             GetComponent<LevelManager>().ResetLevel();
         }
         //Swap mechanic
@@ -148,5 +207,6 @@ public class PlayerControllerScript : MonoBehaviour
         GreteGameObject.GetComponent<SpriteRenderer>().enabled = true;
         HansFinish = false;
         GreteFinish = false;
+        CurrentCharObj = HansGameObject;
     }
 }

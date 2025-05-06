@@ -30,6 +30,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     [SerializeField] float PlayerSpeed = 0.8f;
 
+    [SerializeField] GameObject SoundsObj;
+
     float StepTimer = 0f;
 
     float stepSize = 1f;
@@ -41,8 +43,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     void PlaySound(string sound)
     {
-        //Debug.Log("[" + Time.time + "] Play Sound: " + sound);
-        //SoundsObject.GetComponent<CamSounds>().PlaySound(sound);
+        Debug.Log("[" + Time.time + "] Play Sound: " + sound);
+        SoundsObj.GetComponent<SoundScript>().PlaySound(sound);
     }
 
     public void SetHint(string txt)

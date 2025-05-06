@@ -20,7 +20,7 @@ public class SoundScript : MonoBehaviour
         }
         if (sound == "swap")
         {
-            sound_step.Play();
+            sound_swap.Play();
         }
     }
 }

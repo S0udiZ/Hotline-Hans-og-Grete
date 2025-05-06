@@ -44,9 +44,13 @@ public class Levels : MonoBehaviour
             case 1:
                 {
                     Door.GetComponent<Door>().open = false;
+                    SlidingDoors[0].GetComponent<SlidingDoors>().open = false;
+                    SlidingDoors[1].GetComponent<SlidingDoors>().open = false;
                     if (Plates[0].GetComponent<PressurePlate>().isactive)
                     {
                         Door.GetComponent<Door>().open = true;
+                        SlidingDoors[0].GetComponent<SlidingDoors>().open = true;
+                        SlidingDoors[1].GetComponent<SlidingDoors>().open = true;
                     }
                     break;
                 }
@@ -55,7 +59,10 @@ public class Levels : MonoBehaviour
                     Door.GetComponent<Door>().open = false;
                     if (Plates[0].GetComponent<PressurePlate>().isactive)
                     {
-                        Door.GetComponent<Door>().open = true;
+                        if (Plates[1].GetComponent<PressurePlate>().isactive)
+                        {
+                            Door.GetComponent<Door>().open = true;
+                        }
                     }
                     break;
                 }
@@ -84,18 +91,6 @@ public class Levels : MonoBehaviour
                     break;
                 }
             case 5:
-                {
-                    Door.GetComponent<Door>().open = false;
-                    if (Plates[0].GetComponent<PressurePlate>().isactive)
-                    {
-                        if (Plates[1].GetComponent<PressurePlate>().isactive)
-                        {
-                            Door.GetComponent<Door>().open = true;
-                        }
-                    }
-                    break;
-                }
-            case 6:
                 {
                     Door.GetComponent<Door>().open = false;
                     SlidingDoors[1].GetComponent<SlidingDoors>().open = false;

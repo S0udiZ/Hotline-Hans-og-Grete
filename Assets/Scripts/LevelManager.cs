@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] int Startlevel = 1;
+    [SerializeField] int Maxlevel; // Maximum number of levels
     int level = 0;
     void Start()
     {
@@ -18,12 +19,11 @@ public class LevelManager : MonoBehaviour
         Debug.Log("lvl: " + level);
         Debug.Log("new lvl: " + newlevel);
         level = newlevel;
-        try { //Does not fucking work and I do not know why
-            SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
-        } catch (System.Exception)
+        if (level <= Maxlevel)
         {
+            SceneManager.LoadSceneAsync(level.ToString(), LoadSceneMode.Additive);
+        } else {
             SceneManager.LoadSceneAsync("End", LoadSceneMode.Additive);
-            throw;
         }
     }
 

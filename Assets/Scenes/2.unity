@@ -232,6 +232,10 @@ MonoBehaviour:
   inactive: {fileID: 21300000, guid: a3e42576c57112d4c9dc0e3e1560fc70, type: 3}
   active: {fileID: 21300000, guid: dd07f01f05adadd4bba3f2ba09c6f6b3, type: 3}
   isactive: 0
+  doors:
+  - {fileID: 578696168453180860}
+  plateConnection:
+  - {fileID: 1299805121}
 --- !u!212 &814858948
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5418,6 +5422,8 @@ MonoBehaviour:
   inactive: {fileID: 21300000, guid: a3e42576c57112d4c9dc0e3e1560fc70, type: 3}
   active: {fileID: 21300000, guid: dd07f01f05adadd4bba3f2ba09c6f6b3, type: 3}
   isactive: 0
+  doors: []
+  plateConnection: []
 --- !u!212 &1299805122
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -5110,7 +5110,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a68dfd8b3caa1274f9d62ed38eb7c14e, type: 3}
   m_Resource: {fileID: 8300000, guid: a68dfd8b3caa1274f9d62ed38eb7c14e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.205
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5227,7 +5227,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4bf60700c12e84644b86476e71893435, type: 3}
   m_Resource: {fileID: 8300000, guid: 4bf60700c12e84644b86476e71893435, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5324,8 +5324,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 988c6019d5e142d42a1cf47b128f999b, type: 3}
   m_Resource: {fileID: 8300000, guid: 988c6019d5e142d42a1cf47b128f999b, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.795
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5612,7 +5612,7 @@ MonoBehaviour:
   Camera: {fileID: 1370672491}
   hinttext: {fileID: 1954803699}
   hintbg: {fileID: 1311358020}
-  PlayerSpeed: 50
+  PlayerSpeed: 70
   SoundsObj: {fileID: 583478384}
 --- !u!4 &687808296
 Transform:
@@ -5946,7 +5946,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -249.9998}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 320, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1311358020
@@ -10992,7 +10992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -249.9998}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 280, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1954803699
@@ -11015,7 +11015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [E] to interact with the button.
+  m_text: Text goes here
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d33293c28760040468810bcf601a37cc, type: 2}
   m_sharedMaterial: {fileID: -4612084845963867560, guid: d33293c28760040468810bcf601a37cc, type: 2}

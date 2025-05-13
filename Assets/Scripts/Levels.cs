@@ -25,6 +25,7 @@ public class Levels : MonoBehaviour
         Player.GetComponent<PlayerControllerScript>().GreteFinish = false;
     }
 
+/*
     // Update is called twice per frame
     void Update()
     {
@@ -110,4 +111,5 @@ public class Levels : MonoBehaviour
                 }
         }
     }
+*/
 }

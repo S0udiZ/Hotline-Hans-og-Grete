@@ -1,9 +1,8 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class SlidingDoors : MonoBehaviour
+public class SlidingDoors : Door
 {
-    public bool open = false;
     Vector3 defaultposition;
     [SerializeField] Vector2 MoveVector;
     void Start()

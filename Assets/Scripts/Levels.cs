@@ -25,11 +25,10 @@ public class Levels : MonoBehaviour
         Player.GetComponent<PlayerControllerScript>().GreteFinish = false;
     }
 
-/*
     // Update is called twice per frame
     void Update()
     {
-        if (Door.GetComponent<Door>().open==true)
+        if (Door.GetComponent<Door>().open == true)
         {
             if (Vector2.Distance(Hans.transform.position, Door.transform.position) < 0.4f)
             {
@@ -40,6 +39,7 @@ public class Levels : MonoBehaviour
                 Player.GetComponent<PlayerControllerScript>().GreteFinish = true;
             }
         }
+        /*
         switch (Level)
         {
             case 1:
@@ -110,6 +110,6 @@ public class Levels : MonoBehaviour
                     break;
                 }
         }
-    }
 */
+    }
 }

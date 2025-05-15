@@ -13,7 +13,7 @@ public class Levels : MonoBehaviour
     [SerializeField] List<GameObject> Plates;
     [SerializeField] List<GameObject> SlidingDoors;
     GameObject Door;
-    [SerializeField] int Level = 1;
+    // [SerializeField] int Level = 1;
 
     void Start()
     {

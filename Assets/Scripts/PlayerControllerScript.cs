@@ -43,7 +43,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     void PlaySound(string sound)
     {
-        Debug.Log("[" + Time.time + "] Play Sound: " + sound);
+        // Debug.Log("[" + Time.time + "] Play Sound: " + sound);
         SoundsObj.GetComponent<SoundScript>().PlaySound(sound);
     }
 

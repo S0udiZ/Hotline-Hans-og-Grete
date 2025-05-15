@@ -13,7 +13,7 @@ public class SoundScript : MonoBehaviour
     [SerializeField] AudioSource sound_plate_slide;
     public void PlaySound(string sound)
     {
-        Debug.Log("plau-sound: " + sound);
+        // Debug.Log("plau-sound: " + sound);
         if (sound == "step")
         {
             sound_step.Play();

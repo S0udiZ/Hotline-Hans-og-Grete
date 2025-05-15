@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour
+public class HeavyPressurePlate : MonoBehaviour
 {
     [SerializeField] private Sprite inactive;
     [SerializeField] private Sprite active;
@@ -10,22 +10,31 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] private List<PressurePlate> plateConnection;
     private int triggerCount = 0;
     private Coroutine checkCoroutine;
-
+    private void Start()
+    {
+        isactive = false;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        triggerCount++;
-        if (triggerCount == 1)
+        if (other.CompareTag("Golem"))
         {
-            Activate();
+            triggerCount++;
+            if (triggerCount == 1)
+            {
+                Activate();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        triggerCount = Mathf.Max(0, triggerCount - 1);
-        if (triggerCount == 0)
+        if (other.CompareTag("Golem"))
         {
-            Deactivate();
+            triggerCount = Mathf.Max(0, triggerCount - 1);
+            if (triggerCount == 0)
+            {
+                Deactivate();
+            }
         }
     }
 

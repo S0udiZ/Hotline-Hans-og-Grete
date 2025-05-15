@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class SlidingDoors : Door
+public class SlidingDoors : IDoor
 {
     Vector3 defaultposition;
     [SerializeField] Vector2 MoveVector;
@@ -15,7 +15,7 @@ public class SlidingDoors : Door
         //Set open/close sprite
         if (open)
         {
-            transform.position += (defaultposition + (Vector3)MoveVector - transform.position) * Time.deltaTime * 10;
+            // transform.position += (defaultposition + (Vector3)MoveVector - transform.position) * Time.deltaTime * 10;
         }
         else
         {
@@ -35,7 +35,39 @@ public class SlidingDoors : Door
                     GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().KillGrete();
                 }
             }
-            transform.position += (defaultposition - transform.position) * Time.deltaTime * 10;
+            // transform.position += (defaultposition - transform.position) * Time.deltaTime * 10;
         }
+    }
+
+    private void AnimationTween(float duration, Vector2 direction)
+    {
+        var time = duration;
+        if (open)
+        {
+            transform.position += 10 * Time.deltaTime * (defaultposition + (Vector3)direction - transform.position);
+        }
+        else
+        {
+            transform.position += 10 * Time.deltaTime * (defaultposition - transform.position);
+        }
+        time -= Time.deltaTime;
+        if (time >= 0f)
+        {
+            AnimationTween(time, direction);
+        }
+    }
+
+    public override void SwitchOpen()
+    {
+        open = !open;
+        if (open)
+        {
+            AnimationTween(0.5f, MoveVector);
+        }
+        else
+        {
+            AnimationTween(0.5f, -MoveVector);
+        }
+
     }
 }

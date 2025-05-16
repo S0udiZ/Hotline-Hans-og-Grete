@@ -1,10 +1,13 @@
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections;
 
 public class SlidingDoors : IDoor
 {
     Vector3 defaultposition;
     [SerializeField] Vector2 MoveVector;
+    private Coroutine doorCoroutine;
+
     void Start()
     {
         defaultposition = transform.position;
@@ -26,35 +29,32 @@ public class SlidingDoors : IDoor
                 {
                     hit.collider.gameObject.GetComponent<Box>().Smash();
                 }
-                if (hit.collider.gameObject.CompareTag("Hans"))
-                {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().KillHans();
-                }
-                if (hit.collider.gameObject.CompareTag("Grete"))
-                {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().KillGrete();
-                }
             }
             // transform.position += (defaultposition - transform.position) * Time.deltaTime * 10;
         }
     }
 
+    private IEnumerator AnimationTweenCoroutine(float duration, Vector2 direction)
+    {
+        Vector3 startPos = transform.position;
+        Vector3 endPos = open ? defaultposition + (Vector3)direction : defaultposition;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = endPos;
+    }
+
     private void AnimationTween(float duration, Vector2 direction)
     {
-        var time = duration;
-        if (open)
+        if (doorCoroutine != null)
         {
-            transform.position += 10 * Time.deltaTime * (defaultposition + (Vector3)direction - transform.position);
+            StopCoroutine(doorCoroutine);
         }
-        else
-        {
-            transform.position += 10 * Time.deltaTime * (defaultposition - transform.position);
-        }
-        time -= Time.deltaTime;
-        if (time >= 0f)
-        {
-            AnimationTween(time, direction);
-        }
+        doorCoroutine = StartCoroutine(AnimationTweenCoroutine(duration, direction));
     }
 
     public override void SwitchOpen()
@@ -68,6 +68,5 @@ public class SlidingDoors : IDoor
         {
             AnimationTween(0.5f, -MoveVector);
         }
-
     }
 }

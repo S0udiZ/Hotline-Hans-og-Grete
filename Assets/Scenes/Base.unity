@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 473547015}
   - component: {fileID: 473547017}
   - component: {fileID: 473547016}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5342,7 +5342,7 @@ GameObject:
   - component: {fileID: 674041242}
   - component: {fileID: 674041241}
   - component: {fileID: 674041240}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grete
   m_TagString: Grete
   m_Icon: {fileID: 0}
@@ -5681,7 +5681,7 @@ GameObject:
   - component: {fileID: 1238730384}
   - component: {fileID: 1238730383}
   - component: {fileID: 1238730382}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hans
   m_TagString: Hans
   m_Icon: {fileID: 0}
@@ -6056,7 +6056,7 @@ GameObject:
   - component: {fileID: 1888176678}
   - component: {fileID: 1888176680}
   - component: {fileID: 1888176679}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}

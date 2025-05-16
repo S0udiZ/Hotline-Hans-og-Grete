@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4589600932675869946}
   - component: {fileID: 5567843548991290194}
   - component: {fileID: 8492907544751069607}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SlidingDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7bc095166c3de449a50423c7484097d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closedsprite: {fileID: 1890361451171832322, guid: 9da372b7013bb99449e6cbbcc59c97b2, type: 3}
-  opensprite: {fileID: 1890361451171832322, guid: 9da372b7013bb99449e6cbbcc59c97b2, type: 3}
   open: 0
   MoveVector: {x: 1, y: 0}
 --- !u!212 &5567843548991290194

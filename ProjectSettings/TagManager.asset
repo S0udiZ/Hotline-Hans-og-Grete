@@ -10,11 +10,12 @@ TagManager:
   - Door
   - Box
   - Wall
+  - Golem
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Players
   - Water
   - UI
   - 

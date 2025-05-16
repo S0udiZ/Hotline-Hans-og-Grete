@@ -6,6 +6,7 @@ public class HeavyPressurePlate : MonoBehaviour
     [SerializeField] private Sprite inactive;
     [SerializeField] private Sprite active;
     public bool isactive = false;
+    [SerializeField] private int activatibleCount = 2;
     [SerializeField] private List<IDoor> doors;
     [SerializeField] private List<PressurePlate> plateConnection;
     private int triggerCount = 0;
@@ -16,25 +17,20 @@ public class HeavyPressurePlate : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Golem"))
+
+        triggerCount++;
+        if (triggerCount >= activatibleCount)
         {
-            triggerCount++;
-            if (triggerCount == 1)
-            {
-                Activate();
-            }
+            Activate();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Golem"))
+        triggerCount = Mathf.Max(0, triggerCount - 1);
+        if (triggerCount < activatibleCount && isactive)
         {
-            triggerCount = Mathf.Max(0, triggerCount - 1);
-            if (triggerCount == 0)
-            {
-                Deactivate();
-            }
+            Deactivate();
         }
     }
 

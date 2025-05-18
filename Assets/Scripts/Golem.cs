@@ -1,9 +1,87 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO.Compression;
 
 public class Golem : MonoBehaviour
 {
+    public float moveSpeed = 1f;
+    public float stopDistance = 0.5f;
+    public float switchTargetThreshold = 0.5f;
+
+    private Transform currentTarget;
+
+    void Update()
+    {
+        UpdateNearestPlayer();
+
+        if (currentTarget != null)
+        {
+            float distance = Vector3.Distance(transform.position, currentTarget.position);
+            Debug.Log($"[Golem] Current target: {currentTarget.name}, Distance: {distance}");
+
+            if (distance > stopDistance)
+            {
+                Vector3 direction = (currentTarget.position - transform.position).normalized;
+                transform.position += direction * moveSpeed * Time.deltaTime;
+                Debug.Log($"[Golem] Moving toward {currentTarget.name} with direction {direction}");
+            }
+            else
+            {
+                Debug.Log($"[Golem] Reached target {currentTarget.name}, stopping.");
+            }
+        }
+        else
+        {
+            Debug.Log("[Golem] No target found.");
+        }
+    }
+
+    void UpdateNearestPlayer()
+    {
+        string[] playerTags = { "Hans", "Grete" }; 
+        List<GameObject> allPlayers = new List<GameObject>();
+
+
+        foreach (string tag in playerTags)
+        {
+            GameObject[] taggedPlayers = GameObject.FindGameObjectsWithTag(tag);
+            allPlayers.AddRange(taggedPlayers);
+        }
+
+        float closestDistance = Mathf.Infinity;
+        Transform closestPlayer = null;
+
+        foreach (GameObject player in allPlayers)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            Debug.Log($"[Golem] Found player {player.name} at distance {distance}");
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestPlayer = player.transform;
+            }
+        }
+
+        if (closestPlayer != null)
+        {
+            float currentDistance = currentTarget != null
+                ? Vector3.Distance(transform.position, currentTarget.position)
+                : Mathf.Infinity;
+
+            if (currentTarget == null || closestDistance + switchTargetThreshold < currentDistance)
+            {
+                Debug.Log($"[Golem] Switching target to {closestPlayer.name}");
+                currentTarget = closestPlayer;
+            }
+            else
+            {
+                Debug.Log($"[Golem] Keeping current target {currentTarget.name}");
+            }
+        }
+    }
+}
+/*
     public float speed = 2f;
     public float detectionRange = 10f;
     public LayerMask playerLayer;
@@ -275,3 +353,4 @@ public class Golem : MonoBehaviour
     }
 #endif
 }
+*/

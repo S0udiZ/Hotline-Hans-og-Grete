@@ -28,6 +28,7 @@ public class HeavyPressurePlate : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (!other.gameObject.CompareTag("Golem")) return;
         triggerCount = Mathf.Max(0, triggerCount - 1);
         if (triggerCount < activatibleCount && isactive)
         {

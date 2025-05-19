@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.IO.Compression;
+using System.Collections;
 
 public class Golem : MonoBehaviour
 {
@@ -10,30 +10,67 @@ public class Golem : MonoBehaviour
 
     private Transform currentTarget;
 
-    void Update()
+    [SerializeField] private Animator attackAnimation;
+
+    private void Start()
     {
-        UpdateNearestPlayer();
-
-        if (currentTarget != null)
+        if (attackAnimation == null)
         {
-            float distance = Vector3.Distance(transform.position, currentTarget.position);
-            Debug.Log($"[Golem] Current target: {currentTarget.name}, Distance: {distance}");
-
-            if (distance > stopDistance)
-            {
-                Vector3 direction = (currentTarget.position - transform.position).normalized;
-                transform.position += direction * moveSpeed * Time.deltaTime;
-                transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
-                Debug.Log($"[Golem] Moving toward {currentTarget.name} with direction {direction}");
-            }
-            else
-            {
-                Debug.Log($"[Golem] Reached target {currentTarget.name}, stopping.");
-            }
+            Debug.LogError("[Golem] Attack animation not set.");
         }
         else
         {
-            Debug.Log("[Golem] No target found.");
+            StartCoroutine(UpdateRoutine());
+        }
+    }
+
+    private IEnumerator UpdateRoutine()
+    {
+        while (true)
+        {
+            UpdateNearestPlayer();
+
+            if (currentTarget != null)
+            {
+                float distance = Vector3.Distance(transform.position, currentTarget.position);
+
+                if (distance > stopDistance)
+                {
+                    Vector3 direction = (currentTarget.position - transform.position).normalized;
+                    transform.position += direction * moveSpeed * Time.deltaTime;
+                    transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                }
+                else
+                {
+                    // Golem is close enough to the target, stop moving
+                    // Stop moving and trigger attack animation, then wait for a bit
+                    attackAnimation.SetTrigger("Attack");
+                    // wait for the attack animation to finish
+                    float waitTime = 1f; // fallback duration
+                    yield return new WaitForSeconds(waitTime); // Wait for the attack animation to finish
+
+                    Vector2 direction = (currentTarget.position - transform.position).normalized;
+                    // Checks if there is a target right in front of the golem when attacking
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, stopDistance, LayerMask.GetMask("Players"));
+                    Debug.DrawRay(transform.position, direction * stopDistance, Color.red, 1f);
+                    if (hit.collider != null && (hit.collider.CompareTag("Hans") || hit.collider.CompareTag("Grete")))
+                    {
+                        if (GameObject.FindGameObjectWithTag("Player").TryGetComponent<PlayerControllerScript>(out var playerController))
+                        {
+                            if (hit.collider.CompareTag("Hans"))
+                            {
+                                playerController.KillHans();
+                            }
+                            else if (hit.collider.CompareTag("Grete"))
+                            {
+                                playerController.KillGrete();
+                            }
+                        }
+                    }
+                    yield return new WaitForSeconds(2f); // Adjust this duration as needed
+                }
+            }
+            yield return null; // Wait for next frame before checking again
         }
     }
 
@@ -55,7 +92,6 @@ public class Golem : MonoBehaviour
         foreach (GameObject player in allPlayers)
         {
             float distance = Vector3.Distance(transform.position, player.transform.position);
-            Debug.Log($"[Golem] Found player {player.name} at distance {distance}");
 
             if (distance < closestDistance)
             {
@@ -72,12 +108,7 @@ public class Golem : MonoBehaviour
 
             if (currentTarget == null || closestDistance + switchTargetThreshold < currentDistance)
             {
-                Debug.Log($"[Golem] Switching target to {closestPlayer.name}");
                 currentTarget = closestPlayer;
-            }
-            else
-            {
-                Debug.Log($"[Golem] Keeping current target {currentTarget.name}");
             }
         }
     }

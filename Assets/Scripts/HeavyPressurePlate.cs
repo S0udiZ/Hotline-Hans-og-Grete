@@ -19,6 +19,7 @@ public class HeavyPressurePlate : MonoBehaviour
     {
 
         triggerCount++;
+        if (!other.gameObject.CompareTag("Golem")) return;
         if (triggerCount >= activatibleCount)
         {
             Activate();

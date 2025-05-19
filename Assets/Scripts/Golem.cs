@@ -23,6 +23,7 @@ public class Golem : MonoBehaviour
             {
                 Vector3 direction = (currentTarget.position - transform.position).normalized;
                 transform.position += direction * moveSpeed * Time.deltaTime;
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
                 Debug.Log($"[Golem] Moving toward {currentTarget.name} with direction {direction}");
             }
             else

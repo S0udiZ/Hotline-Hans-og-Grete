@@ -5565,7 +5565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Startlevel: 1
-  Maxlevel: 7
+  Maxlevel: 10
 --- !u!1 &1147926331
 GameObject:
   m_ObjectHideFlags: 0

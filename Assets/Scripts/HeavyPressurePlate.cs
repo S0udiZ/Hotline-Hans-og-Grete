@@ -6,7 +6,7 @@ public class HeavyPressurePlate : MonoBehaviour
     [SerializeField] private Sprite inactive;
     [SerializeField] private Sprite active;
     public bool isactive = false;
-    [SerializeField] private int activatibleCount = 2;
+    [SerializeField] private GameObject bars;
     [SerializeField] private List<IDoor> doors;
     [SerializeField] private List<PressurePlate> plateConnection;
     private int triggerCount = 0;
@@ -14,13 +14,12 @@ public class HeavyPressurePlate : MonoBehaviour
     private void Start()
     {
         isactive = false;
+        bars.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        triggerCount++;
         if (!other.gameObject.CompareTag("Golem")) return;
-        if (triggerCount >= activatibleCount)
+        if (triggerCount >= 1)
         {
             Activate();
         }
@@ -30,7 +29,7 @@ public class HeavyPressurePlate : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Golem")) return;
         triggerCount = Mathf.Max(0, triggerCount - 1);
-        if (triggerCount < activatibleCount && isactive)
+        if (triggerCount < 1 && isactive)
         {
             Deactivate();
         }
@@ -50,6 +49,7 @@ public class HeavyPressurePlate : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = inactive;
         isactive = false;
+        bars.SetActive(false);
         if (checkCoroutine != null)
         {
             StopCoroutine(checkCoroutine);
@@ -78,6 +78,7 @@ public class HeavyPressurePlate : MonoBehaviour
             }
             if (connectionsMet != lastConnectionsMet)
             {
+                bars.SetActive(connectionsMet);
                 foreach (var door in doors)
                 {
                     door.SwitchOpen();

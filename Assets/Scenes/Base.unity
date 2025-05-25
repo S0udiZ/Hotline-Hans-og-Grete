@@ -5531,8 +5531,6 @@ MonoBehaviour:
   GreteFinish: 0
   CurrentCharObj: {fileID: 1238730381}
   Camera: {fileID: 1370672491}
-  hinttext: {fileID: 1954803699}
-  hintbg: {fileID: 1311358020}
   PlayerSpeed: 70
   SoundsObj: {fileID: 583478384}
 --- !u!4 &687808296
@@ -5849,7 +5847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1311358019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10895,7 +10893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1954803698
 RectTransform:
   m_ObjectHideFlags: 0

@@ -24,9 +24,9 @@ public class PlayerControllerScript : MonoBehaviour
     [SerializeField] // Camera Object
     GameObject Camera;
 
-    [SerializeField] TextMeshProUGUI hinttext;
-    [SerializeField] Image hintbg;
-    float hintdelay = 0f;
+    // [SerializeField] TextMeshProUGUI hinttext;
+    // [SerializeField] Image hintbg;
+    // float hintdelay = 0f;
 
     [SerializeField] float PlayerSpeed = 0.8f;
 
@@ -47,11 +47,11 @@ public class PlayerControllerScript : MonoBehaviour
         SoundsObj.GetComponent<SoundScript>().PlaySound(sound);
     }
 
-    public void SetHint(string txt)
-    {
-        hinttext.text = txt;
-        hintdelay = 0.2f;
-    }
+    // public void SetHint(string txt)
+    // {
+    //     hinttext.text = txt;
+    //     hintdelay = 0.2f;
+    // }
 
     public void KillHans()
     {
@@ -82,13 +82,13 @@ public class PlayerControllerScript : MonoBehaviour
     void Update()
     {
         //Hint
-        hintdelay -= Time.deltaTime;
-        hintbg.GetComponent<Image>().enabled = true;
-        if (hintdelay < 0)
-        {
-            hinttext.text = "";
-            hintbg.GetComponent<Image>().enabled = false;
-        }
+        // hintdelay -= Time.deltaTime;
+        // hintbg.GetComponent<Image>().enabled = true;
+        // if (hintdelay < 0)
+        // {
+        //     hinttext.text = "";
+        //     hintbg.GetComponent<Image>().enabled = false;
+        // }
         //Reset
         if (awaitreset)
         {

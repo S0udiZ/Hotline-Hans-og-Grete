@@ -7,7 +7,8 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] private Sprite active;
     public bool isactive = false;
     [SerializeField] private List<IDoor> doors;
-    [SerializeField] private List<PressurePlate> plateConnection;
+
+    [SerializeField] private List<PlateConnection> plateConnection;
     private int triggerCount = 0;
     private Coroutine checkCoroutine;
 
@@ -47,11 +48,13 @@ public class PressurePlate : MonoBehaviour
         {
             StopCoroutine(checkCoroutine);
             checkCoroutine = null;
-        }
-        foreach (var door in doors)
-        {
-            // door.open = false;
-            door.SwitchOpen();
+            foreach (var door in doors)
+            {
+                if (door.open == true)
+                {
+                    door.SwitchOpen();
+                }
+            }
         }
     }
 
@@ -63,7 +66,7 @@ public class PressurePlate : MonoBehaviour
             bool connectionsMet = true;
             foreach (var plate in plateConnection)
             {
-                if (!plate.isactive)
+                if (!plate.plate.isactive != plate.inverse)
                 {
                     connectionsMet = false;
                     break;

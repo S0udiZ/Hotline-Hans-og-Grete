@@ -139,10 +139,12 @@ public class PlayerControllerScript : MonoBehaviour
         {
             GetComponent<LevelManager>().ChangeLevel(GetComponent<LevelManager>().GetLevel()+1);
         }
+        #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GetComponent<LevelManager>().ChangeLevel(GetComponent<LevelManager>().GetLevel() + 1);
         }
+        #endif
 
         //Camera follow
         Vector3 dir;
